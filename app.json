@@ -1,0 +1,36 @@
+{
+  "expo": {
+    "name": "FullTime 360",
+    "slug": "fulltime-360-react-native-app",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/podcast.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/podcast.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#00000e"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.iamkiprono.fulltime360reactnativeapp"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "54348ec6-133b-45c0-b6ac-bc882244e0a8"
+      }
+    }
+  }
+}
