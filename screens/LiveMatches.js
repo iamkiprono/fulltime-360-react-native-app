@@ -9,9 +9,12 @@ import React, { useEffect, useState } from "react";
 
 import { Linking } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Error from "../components/Error";
 
 export default function LiveMatches() {
   const navigation = useNavigation();
+
+  const [error, setError] = useState(false);
 
   const openExternalLink = async (url) => {
     // Check if the link is supported
@@ -30,26 +33,41 @@ export default function LiveMatches() {
   };
 
   const [loading, setLoading] = useState(false);
-  const [matches, setmatches] = useState([]);
+  const [matches, setmatches] = useState(null);
+
   const getMatches = async () => {
-    setLoading(true);
-    const res = await fetch("https://blog-api-kiprono.onrender.com/live");
-    const data = await res.json();
-    setmatches(data);
-    setLoading(false);
+    try {
+      setLoading(true);
+      setError(false);
+      const res = await fetch("https://blog-api-kiprono.onrender.com/live");
+      const data = await res.json();
+      setmatches(data);
+      setLoading(false);
+    } catch (error) {
+      setError(true);
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     getMatches();
   }, []);
+
+  if (error) {
+    return <Error retry={getMatches} />;
+  }
+
   return (
     <View className="px-6 ">
-      <Text className="text-red-500 text-center my-4 text-xl font-bold">Live Matches Today</Text>
+      <Text className="text-red-500 text-center my-4 text-xl font-bold">
+        Live Matches Today
+      </Text>
       {loading && <ActivityIndicator />}
-      {matches.map((match) => {
+
+      { matches?.map((match) => {
         return (
           <TouchableOpacity
-          className="p-6 mb-4 bg-white"
+            className="p-6 mb-4 bg-white"
             key={match._id}
             onPress={() => handleExternalLinkPress(match.matchlink)}
           >

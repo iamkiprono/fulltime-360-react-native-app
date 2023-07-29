@@ -1,6 +1,7 @@
 import { View, Text, ActivityIndicator, Button } from "react-native";
 import React, { useEffect, useState } from "react";
 import NewsCard from "./NewsCard";
+import Error from "./Error";
 
 export default function News() {
   const [news, setNews] = useState(null);
@@ -25,12 +26,7 @@ export default function News() {
     getNews();
   }, []);
   if (error) {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <Text>Something went wrong</Text>
-        <Button onPress={() => getNews()} title="Retry" />
-      </View>
-    );
+    return <Error retry={getNews} />;
   }
   return (
     <View className="bg-[#e9e6e6be] px-2 flex-1">
